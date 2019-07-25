@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/body-scroll-lock-min.js"></script>
+    <script src="https://aframe.io/releases/0.9.1/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.0/aframe/build/aframe-ar.js"></script>
+    <script src="https://unpkg.com/merge-images"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/app.css">
+    <link rel="stylesheet" href="style/animation.css">
+    <title>端午節任務</title>
+</head>
+<body style='margin: 0px; overflow: hidden;''>
+    
+    <a-scene embedded arjs='trackingMethod: best; debugUIEnabled: false;' vr-mode-ui="enabled: false">
+
+        <a-marker id="marker_1" preset='custom' type='pattern' url='data/pattern-marker_1.patt'>
+        </a-marker>
+
+        <a-marker id="marker_2" preset='custom' type='pattern' url='data/pattern-marker_2.patt'>
+        </a-marker>
+
+        <a-marker id="marker_3" preset='custom' type='pattern' url='data/pattern-marker_3.patt'>
+        </a-marker>
+        
+        <a-entity camera></a-entity>
+
+    </a-scene>
+
+    <div id="alert-popover" class="vertical-center">
+        <div>
+            <h4>端午節任務</h4>
+            <p>如無法開啟，請複製連結到可支援的瀏覽器中開啟</p>
+            <ul>
+                <li>iOS請使用Safari開啟</li>
+                <li>Android建議用Chrome或火狐開啟</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center;">
+            <button id="button-start" class="btn btn-info" onclick="hideAlertView()">開始任務</button>
+            <button id="button-copy-link" class="btn btn-info" onclick="copyLink()">複製連結</button>
+        </div>
+
+        <div>
+            <input id="url-input" type="text" value="">
+        </div>
+    </div>
+
+    <div id="question-clear-note" class="center vertical-center hidden">
+        <h2>恭喜您答對囉！</h2>
+    </div>
+
+    <div class='user-ui'>
+
+        <div class='process'>
+            <div class='pieces'>
+                <div class="point"></div>
+                <div class="point"></div>
+                <div class="point"></div>
+            </div>
+            <div class="seperator"></div>
+            <p class="process-text"color: #42a017; background-color: white; display: inline;>任務進度</p>
+        </div>
+
+        <div id="camera-action">
+            <button id="summon-mascot" class="action-btn hidden" onclick="summonMascot();"></button>
+            <button id="camera-change" class="action-btn hidden" onclick="changeCamera();"></button>
+            <button id="camera-shot" class="action-btn hidden" onclick="screenShot();"></button>
+        </div>
+
+        <div id="quiz-card" class="hidden">
+            <button class="close-btn" style="font-size: 1em;" onclick="closeQuizCard()"></button>
+            <div id="quiz-question">
+                <h2 style="font-size: 2wh;">Hello</h2>
+            </div>
+
+            <div id="quiz-option-container">
+                <div>
+                    <label class="container question-label"><span id="option-answer_1">Option 1</span>
+                        <input type="radio" name="answer" value = "1">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container"><span id="option-answer_2">Option 2</span>
+                        <input type="radio" name="answer" value = "2">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container"><span id="option-answer_3">Option 3</span>
+                        <input type="radio" name="answer" value = "3">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container"><span id="option-answer_4">Option 4</span>
+                        <input type="radio" name="answer" value = "4">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+
+            <h3 id="hint-text" class="hidden" style="text-align: center; color: red;"></h3>
+
+            <button class="confirm-btn" onclick="answerQuestion()">確認</button>
+
+        </div>
+
+        <div>
+            <img id="mascot" class="hidden" src="img/mascot.png" alt="">
+        </div>
+
+    </div>
+
+    <canvas width='640' height='480' style='visibility:hidden;' id='doubleImage'></canvas>
+
+    <img id="show-image" src="" alt="" style="position: fixed; width: 100%; height: 100%; left: 0; bottom: 0; display: none; z-index: 9;">
+
+    <div style="width: 100%; height: 50px; position: fixed; left: 0; bottom: 0; z-index: 10; overflow: hidde">
+        <a id="download-link"></a>
+        <div id="selectVideo" class="select" style="display: none;">
+            <label for="videoSource">選擇鏡頭: </label>
+            <select id="videoSource"></select>
+        </div>
+    </div>
+
+    <script src="js/camera.js"></script>
+</body>
+</html>
